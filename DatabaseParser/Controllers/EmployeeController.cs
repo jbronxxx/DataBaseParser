@@ -1,9 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.IO;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Hosting;
 using DatabaseParser.Models;
 
 namespace DatabaseParser.Controllers
@@ -12,12 +9,9 @@ namespace DatabaseParser.Controllers
     {
         private readonly EmployeeContext _context;
 
-        private IWebHostEnvironment _env;
-
-        public EmployeeController(EmployeeContext context, IWebHostEnvironment env)
+        public EmployeeController(EmployeeContext context)
         {
             _context = context;
-            _env = env;
         }
 
         // GET: Employee
@@ -62,22 +56,6 @@ namespace DatabaseParser.Controllers
             _context.Employees.Remove(employee);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
-
-        // POST: Upload database from file
-        [HttpPost]
-        public IActionResult DataBaseUpload(IFormFile file)
-        {
-            var dir = _env.WebRootPath;
-
-            if (file != null)
-            {
-                using (var fileStream = new FileStream(Path.Combine(dir, file.FileName), FileMode.Create, FileAccess.Write))
-                {
-                    file.CopyTo(fileStream);
-                }
-            }
-            return RedirectToAction("Index");
         }
     }
 }
