@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30717.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseParser", "DatabaseParser\DatabaseParser.csproj", "{BDFDE2A6-8585-4344-94F1-40B5D9926F36}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BDFDE2A6-8585-4344-94F1-40B5D9926F36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDFDE2A6-8585-4344-94F1-40B5D9926F36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDFDE2A6-8585-4344-94F1-40B5D9926F36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDFDE2A6-8585-4344-94F1-40B5D9926F36}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DE221A12-55B8-40B0-AAD6-9BEA1844D8CD}
+	EndGlobalSection
+EndGlobal
