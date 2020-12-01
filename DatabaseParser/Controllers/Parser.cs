@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using System.Collections.Generic;
+using DatabaseParser.Models;
+using System.Linq;
 
 namespace DatabaseParser.Models
 {
@@ -32,13 +34,27 @@ namespace DatabaseParser.Models
                 }
             }
 
-            var employeesFromFile = GetEmployeeList(file.FileName);
-
-            foreach (var emp in employeesFromFile)
+            if (file != null)
             {
-                _context.Add(emp);
+                var employeesFromFile = GetEmployeeList(file.FileName);
+                
+                if (ModelState.IsValid)
+                {
+                    {
+                        foreach (var emp in employeesFromFile)
+                        {
+                            if (!_context.Employees.Any(o => o.PayrollNumber == emp.PayrollNumber))
+                            {
+                                _context.Add(emp);
+                            }
+                        }
+                    }
+                }
+                else
+                    _context.Update(employeesFromFile);
+                _context.SaveChanges();
             }
-            _context.SaveChanges();
+
             return RedirectToAction("Index","Employee");
         }
 
