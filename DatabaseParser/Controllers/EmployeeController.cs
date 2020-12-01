@@ -17,7 +17,7 @@ namespace DatabaseParser.Controllers
         }
 
         // GET: Employee
-        public async Task<IActionResult> Index(string sortOrder)
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
             ViewData["PayrollNumberSort"] = String.IsNullOrEmpty(sortOrder) ? "payrollNumberDesc" : "";
             ViewData["ForeNameSort"]      = String.IsNullOrEmpty(sortOrder) ? "foreNameDesc" : "";
@@ -31,7 +31,14 @@ namespace DatabaseParser.Controllers
             ViewData["EmailHomeSort"]     = String.IsNullOrEmpty(sortOrder) ? "emailHomeDesc" : "";
             ViewData["StartDateSort"]     = String.IsNullOrEmpty(sortOrder) ? "startDateDesc" : "";
 
+            ViewData["SearchFilter"]      = searchString;
+
             var employees = from s in _context.Employees select s;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                employees = employees.Where(s => s.SurName.Contains(searchString) || s.ForeNames.Contains(searchString));
+            }
 
             switch (sortOrder)
             {
