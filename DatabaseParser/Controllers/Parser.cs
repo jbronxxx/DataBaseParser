@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace DatabaseParser.Models
 {
@@ -11,9 +10,12 @@ namespace DatabaseParser.Models
     {
         private IWebHostEnvironment _env;
 
-        public Parser(IWebHostEnvironment env)
+        private EmployeeContext _context;
+
+        public Parser(IWebHostEnvironment env, EmployeeContext context)
         {
             _env = env;
+            _context = context;
         }
 
         // POST: Upload .csv file to wwwroot/files
@@ -30,18 +32,27 @@ namespace DatabaseParser.Models
                 }
             }
 
+            var employeesFromFile = GetEmployeeList(file.FileName);
+
+            foreach (var emp in employeesFromFile)
+            {
+                _context.Add(emp);
+            }
+            _context.SaveChanges();
             return RedirectToAction("Index","Employee");
         }
 
-        private List<string> GetFileLinesToList(IFormFile fName)
+        private List<Employee> GetEmployeeList(string fName)
         {
             List<string> fileLines = new List<string>();
+
+            List<Employee> employees = new List<Employee>();
 
             var fileName = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\files"}" + "\\" + fName;
 
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
 
-            using (var fileStream = new FileStream(fileName, FileMode.Open, FileAccess.Read))
+            using (var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read))
             {
                 using(var streamReader = new StreamReader(fileName))
                 {
@@ -52,7 +63,27 @@ namespace DatabaseParser.Models
                 }
             }
 
-            return fileLines;
+            for (int i = 1; i < fileLines.Count; i++)
+            {
+                string[] temp = fileLines[i].Split(',');
+
+                employees.Add(new Employee()
+                {
+                    PayrollNumber = temp[0].ToString(),
+                    ForeNames     = temp[1].ToString(),
+                    SurName       = temp[2].ToString(),
+                    DateOfBirth   = temp[3].ToString(),
+                    Telephone     = temp[4].ToString(),
+                    Mobile        = temp[5].ToString(),
+                    Adress        = temp[6].ToString(),
+                    Adress2       = temp[7].ToString(),
+                    PostCode      = temp[8].ToString(),
+                    EmailHome     = temp[9].ToString(),
+                    StartDate     = temp[10].ToString()
+                });
+            }
+
+            return employees;
         }
     }
 }
