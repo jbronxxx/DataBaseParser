@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DatabaseParser.Models;
+using System;
+using System.Linq;
 
 namespace DatabaseParser.Controllers
 {
@@ -15,9 +17,63 @@ namespace DatabaseParser.Controllers
         }
 
         // GET: Employee
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder)
         {
-            return View(await _context.Employees.ToListAsync());
+            ViewData["PayrollNumberSort"] = String.IsNullOrEmpty(sortOrder) ? "payrollNumberDesc" : "";
+            ViewData["ForeNameSort"]      = String.IsNullOrEmpty(sortOrder) ? "foreNameDesc" : "";
+            ViewData["SurNameSort"]       = String.IsNullOrEmpty(sortOrder) ? "surNameDesc" : "";
+            ViewData["DateOfBirthSort"]   = String.IsNullOrEmpty(sortOrder) ? "dateOfBirthDesc" : "";
+            ViewData["TelephoneSort"]     = String.IsNullOrEmpty(sortOrder) ? "telephoneDesc" : "";
+            ViewData["MobileSort"]        = String.IsNullOrEmpty(sortOrder) ? "mobileDesc" : "";
+            ViewData["AdressSort"]        = String.IsNullOrEmpty(sortOrder) ? "adressDesc" : "";
+            ViewData["Adress2Sort"]       = String.IsNullOrEmpty(sortOrder) ? "adress2Desc" : "";
+            ViewData["PostCodeSort"]      = String.IsNullOrEmpty(sortOrder) ? "postCodeDesc" : "";
+            ViewData["EmailHomeSort"]     = String.IsNullOrEmpty(sortOrder) ? "emailHomeDesc" : "";
+            ViewData["StartDateSort"]     = String.IsNullOrEmpty(sortOrder) ? "startDateDesc" : "";
+
+            var employees = from s in _context.Employees select s;
+
+            switch (sortOrder)
+            {
+                case "payrollNumberDesc":
+                    employees = employees.OrderByDescending(e => e.PayrollNumber);
+                    break;
+                case "foreNameDesc":
+                    employees = employees.OrderByDescending(e => e.ForeNames);
+                    break;
+                case "surNameDesc":
+                    employees = employees.OrderByDescending(e => e.SurName);
+                    break;
+                case "dateOfBirthDesc":
+                    employees = employees.OrderByDescending(e => e.DateOfBirth);
+                    break;
+                case "telephoneDesc":
+                    employees = employees.OrderByDescending(e => e.Telephone);
+                    break;
+                case "mobileDesc":
+                    employees = employees.OrderByDescending(e => e.Mobile);
+                    break;
+                case "adressDesc":
+                    employees = employees.OrderByDescending(e => e.Adress);
+                    break;
+                case "adress2Desc":
+                    employees = employees.OrderByDescending(e => e.Adress2);
+                    break;
+                case "postCodeDesc":
+                    employees = employees.OrderByDescending(e => e.PostCode);
+                    break;
+                case "emailHomeDesc":
+                    employees = employees.OrderByDescending(e => e.EmailHome);
+                    break;
+                case "startDateDesc":
+                    employees = employees.OrderByDescending(e => e.StartDate);
+                    break;
+                default:
+                    //employees = employees.OrderBy(e => e.SurName);
+                    break;
+            }
+
+            return View(await employees.AsNoTracking().ToListAsync());
         }
 
         // GET: Employee/Add Or Edit

@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using System.Collections.Generic;
-using DatabaseParser.Models;
 using System.Linq;
 
 namespace DatabaseParser.Models

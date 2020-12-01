@@ -19,37 +19,37 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.PayrollNumber)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["PayrollNumberSort"]"> @Html.DisplayNameFor(model => model.PayrollNumber)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ForeNames)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["ForeNameSort"]"> @Html.DisplayNameFor(model => model.ForeNames)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SurName)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["SurNameSort"]"> @Html.DisplayNameFor(model => model.SurName)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DateOfBirth)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["DateOfBirthSort"]">@Html.DisplayNameFor(model => model.DateOfBirth)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Telephone)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["TelephoneSort"]">@Html.DisplayNameFor(model => model.Telephone)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Mobile)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["MobileSort"]">@Html.DisplayNameFor(model => model.Mobile)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Adress)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["AdressSort"]"> @Html.DisplayNameFor(model => model.Adress)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Adress2)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["Adress2Sort"]"> @Html.DisplayNameFor(model => model.Adress2)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PostCode)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["PostCodeSort"]">@Html.DisplayNameFor(model => model.PostCode)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EmailHome)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["EmailHomeSort"]"> @Html.DisplayNameFor(model => model.EmailHome)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.StartDate)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["StartDateSort"]"> @Html.DisplayNameFor(model => model.StartDate)</a>
             </th>
             <th>
                 <a asp-action="AddOrEdit" class="btn btn-dark">Add Employee</a>
