@@ -33,6 +33,7 @@ namespace DatabaseParser.Models
                 }
             }
 
+            // Adding an employee to the database 
             if (file != null)
             {
                 var employeesFromFile = GetEmployeeList(file.FileName);
@@ -58,6 +59,7 @@ namespace DatabaseParser.Models
             return RedirectToAction("Index","Employee");
         }
 
+        // Reading .csv file
         private List<Employee> GetEmployeeList(string fName)
         {
             List<string> fileLines = new List<string>();
