@@ -11,6 +11,10 @@
     <form asp-controller="Parser" asp-action="DataBaseUpload" enctype="multipart/form-data" method="post">
         <input type="file" name="file" accept=".csv " />
         <button type="submit" class="btn btn-primary">Submit</button>
+        @if (TempData["notice"] != null)
+        {
+            <p>@TempData["notice"]</p>
+        }
         <br />
     </form>
 </div>
@@ -108,7 +112,7 @@
                 <td>
                     <a asp-action="AddOrEdit" asp-route-id="@item.EmployeeId">Edit</a> |
                     |
-                    <a asp-action="Delete" asp-route-id="@item.EmployeeId">Delete</a>
+                    <a asp-action="Delete" asp-route-id="@item.EmployeeId" onclick="return confirm('Delete this record?')">Delete</a>
                 </td>
             </tr>
         }

@@ -47,13 +47,14 @@ namespace DatabaseParser.Models
                                 _context.Add(emp);
                             }
                         }
+                        TempData["notice"] = $"Successfully uploaded {employeesFromFile.Count} employees.";
                     }
                 }
                 else
                     _context.Update(employeesFromFile);
                 _context.SaveChanges();
             }
-
+            
             return RedirectToAction("Index","Employee");
         }
 
