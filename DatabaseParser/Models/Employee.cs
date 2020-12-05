@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -7,6 +8,7 @@ namespace DatabaseParser.Models
     public class Employee
     {
         [Key]
+        [HiddenInput(DisplayValue = false)]
         public int EmployeeId { get; set; }
 
         [Column(TypeName = "varchar(10)")]

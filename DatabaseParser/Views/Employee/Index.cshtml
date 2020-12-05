@@ -68,7 +68,7 @@
                 <a asp-action="Index" asp-route-sortOrder="@ViewData["StartDateSort"]"> @Html.DisplayNameFor(model => model.StartDate)</a>
             </th>
             <th>
-                <a asp-action="AddOrEdit" class="btn btn-dark">Add Employee</a>
+                <a asp-action="AddOrEdit" class="btn btn-outline-success">Add Employee</a>
             </th>
         </tr>
     </thead>
@@ -110,9 +110,9 @@
                     @Html.DisplayFor(modelItem => item.StartDate)
                 </td>
                 <td>
-                    <a asp-action="AddOrEdit" asp-route-id="@item.EmployeeId">Edit</a> |
-                    |
-                    <a asp-action="Delete" asp-route-id="@item.EmployeeId" onclick="return confirm('Delete this record?')">Delete</a>
+                    <a asp-action="AddOrEdit" asp-controller="Employee" asp-route-id="@item.EmployeeId">Edit</a>
+                    
+                    <a asp-action="Delete" asp-controller="Employee" asp-route-id="@item.EmployeeId" onclick="return confirm('Delete this record?')">Delete</a>
                 </td>
             </tr>
         }

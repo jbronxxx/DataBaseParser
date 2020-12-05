@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using DatabaseParser.Models;
 using System;
 using System.Linq;
+using System.Net;
 
 namespace DatabaseParser.Controllers
 {
@@ -84,23 +85,22 @@ namespace DatabaseParser.Controllers
         }
 
         // GET: Employee/Add Or Edit
-        public IActionResult AddOrEdit(int id = 0)
+        public IActionResult AddOrEdit(int id = 0) 
         {
             if (id == 0)
-                return View(new Employee());
+                return View(new Employee()); 
             else
-                return View(_context.Employees.Find(id));
+                return View(_context.Employees.Find(id)); 
 
         }
 
         // POST: Employee/Add or edit
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddOrEdit([Bind("PayrollNumber,ForeNames,SurName,DateOfBirth,Telephone,Mobile,Adress,Adress2,PostCode,EmailHome,StartDate")] Employee employee)
-        {
+        public async Task<IActionResult> AddOrEdit([Bind("EmployeeId,PayrollNumber,ForeNames,SurName,DateOfBirth,Telephone,Mobile,Adress,Adress2,PostCode,EmailHome,StartDate")] Employee employee)
+         {
             if (ModelState.IsValid)
             {
-                if (employee.EmployeeId == 0)
+                if (employee == null)
                 {
                     _context.Add(employee);
                 }
@@ -112,12 +112,15 @@ namespace DatabaseParser.Controllers
             return View(employee);
         }
 
-        // GET: Employee/Delete/5
+        // GET: Employee/Delete
         public async Task<IActionResult> Delete(int? id)
         {
             var employee = await _context.Employees.FindAsync(id);
+
             _context.Employees.Remove(employee);
+
             await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
     }
